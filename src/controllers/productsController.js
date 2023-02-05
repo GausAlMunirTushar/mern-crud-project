@@ -26,3 +26,32 @@ exports.readProduct = (req, res) => {
         }
     })
 }
+
+// Update a product identified by the productId in the request
+exports.updateProduct = (req, res) => {
+    let id = req.params.id;
+    let Query = {_id: id};
+    let reqBody = req.body;
+    productModel.updateOne(Query, reqBody, (err, data) => {
+        if(err){
+            res.status(400).json({status: "failed", data: err})
+        }
+        else{
+            res.status(200).json({status: "success", data: data})
+        }
+    })
+}
+
+// Delete a product with the specified productId in the request
+exports.deleteProduct = (req, res) => {
+    let id = req.params.id;
+    let Query = {_id: id};
+    productModel.remove(Query,(err, data) => {
+        if(err){
+            res.status(400).json({status: "failed", data: err})
+        }
+        else{
+            res.status(200).json({status: "success", data: data})
+        }
+    })
+}
