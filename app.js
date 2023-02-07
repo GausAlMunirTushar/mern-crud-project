@@ -1,8 +1,8 @@
 // Basic Libaries and Modules import
 const express = require('express');
-const  router = require('./src/routes/api');
+const router = require('./src/routes/api');
 const app = new express();
-const bodyParser = require(body-parser)
+const bodyParser = require('body-parser')
 const path = require('path');
 
 // Security Middleware import
@@ -33,12 +33,15 @@ const limiter = rateLimit({
 app.use(limiter)
 
 // MongoDB Database Connection
-let URI = " "
-let OPTIONS = {user:'', pass:'', autoIIndex: true}
+let URI = "mongodb+srv://<username>:<password>@cluster0.bstsr.mongodb.net/mern-crud?retryWrites=true&w=majority"
+let OPTIONS = {user: 'admin', pass: 'tushar'}
 mongoose.connect(URI, OPTIONS, (error)=>{
         console.log("Connected to MongoDB");
         console.log(error);
 })
+
+// API Routes
+app.use('/api/v1', router);
 
 // Add React Front  End Routing
 app.get('*', (req, res) => {
